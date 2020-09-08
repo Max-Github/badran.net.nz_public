@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Upgrade a Specific Package with apt</title>
+  <meta name="description"
+    content="At times you would want to upgrade only a single package (and the dependcies of said package). Quote often other would recommend using just the following:">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/css/mycss.css">
+  <link rel="canonical" href="https://badran.net.nz/linux/2018/02/03/Upgrade_a_Specific_Package_With_apt.html">
+  <link rel="alternate" type="application/rss+xml" title="Badran.net.nz"
+    href="https://badran.net.nz/feed.xml">
+</head>
+
+  <body>
+
+    <header class="site-header">
+    <div class="site-header-container">
+        <a class="logo" href="/"></a>
+        <div class="site-header-text">
+            <h1>
+                <a class="site-title"
+                    href="/">Badran.net.nz</a>
+            </h1>
+            <h2>Just some random stuff.
+</h2>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+        <section id="main_content">
+            <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Upgrade a Specific Package with apt</h1>
+    <p class="post-meta">
+        <time datetime="2018-02-03T00:00:00+13:00" itemprop="datePublished">Feb 3, 2018</time>
+         
+        <br><span>[linux]</span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>At times you would want to upgrade only a single package (and the dependcies of said package). Quote often other would recommend using just the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="o">[</span>Package-Name]
+</code></pre></div></div>
+
+<p>The issue with the above is that it would add the package the list of manually installed packages. Which would result in this package never being removed if you ever uninstall all packages that are dependent on it.</p>
+
+<p>The solution is to add the <strong>–only-upgrade</strong> flag as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> –only-upgrade <span class="o">[</span>Package-Name]
+</code></pre></div></div>
+
+<h4 id="extra">Extra</h4>
+
+<p>You can view all packages that were manually installed (not installed as dependencies) by using this command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-mark showmanual
+</code></pre></div></div>
+
+<p>It is a good idea to keep a copy of this list with your backups.</p>
+
+  </div>
+
+</article>
+
+        </section>
+    
+    </div>
+    <sidebar class="site-sidebar">
+    <nav class="site-nav">
+        <h3><a name="Blog" href="/blog/">Blog</a></h3>
+<h4>category list:</h4>
+<ul>
+  
+  <li><a name="update" href="/category_list/#update">update</a></li>
+  
+  <li><a name="linux" href="/category_list/#linux">linux</a></li>
+  
+  <li><a name="docker" href="/category_list/#docker">docker</a></li>
+  
+  <li><a name="systemd" href="/category_list/#systemd">systemd</a></li>
+  
+  <li><a name="dns" href="/category_list/#dns">dns</a></li>
+  
+  <li><a name="ad blocker" href="/category_list/#ad blocker">ad blocker</a></li>
+  
+  <li><a name="networking" href="/category_list/#networking">networking</a></li>
+  
+  <li><a name="lxd" href="/category_list/#lxd">lxd</a></li>
+  
+  <li><a name="windows" href="/category_list/#windows">windows</a></li>
+  
+  <li><a name="go" href="/category_list/#go">go</a></li>
+  
+  <li><a name="borg" href="/category_list/#borg">borg</a></li>
+  
+  <li><a name="bash" href="/category_list/#bash">bash</a></li>
+  
+  <li><a name="journald" href="/category_list/#journald">journald</a></li>
+  
+  <li><a name="laptop" href="/category_list/#laptop">laptop</a></li>
+  
+  <li><a name="ubuntu" href="/category_list/#ubuntu">ubuntu</a></li>
+  
+</ul>
+    </nav>
+
+    <hr>
+    <footer class="site-footer">
+    <ul class="social-media-list">
+        <li><a href="/about/">Contact Details</a></li>
+        
+        <li><a href="https://github.com/Max-Github"><i class="fa fa-github" aria-hidden="true"></i> Max-Github</a></li>
+        
+              
+        
+        <li><a href="https://twitter.com/badran"><i class="fa fa-twitter" aria-hidden="true"></i> badran</a></li>
+        
+    </ul>
+</footer>
+
+    <hr>
+</sidebar>
+  </body>
+</html>

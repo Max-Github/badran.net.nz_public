@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Badran.net.nz</title>
+    <description>Just some random stuff.
+</description>
+    <link>https://badran.net.nz/</link>
+    <atom:link href="https://badran.net.nz/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 02 Feb 2020 11:41:38 +1300</pubDate>
+    <lastBuildDate>Sun, 02 Feb 2020 11:41:38 +1300</lastBuildDate>
+    <generator>Jekyll v3.8.4</generator>
+    
+      <item>
+        <title>Ubuntu 18.04 DNS Flush</title>
+        <description>&lt;p&gt;The following command will flush the dns entries for &lt;strong&gt;Ubuntu 18.04 LTS&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemd-resolve &lt;span class=&quot;nt&quot;&gt;--flush-caches&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will also work for any Linux distro using the &lt;a href=&quot;https://www.freedesktop.org/software/systemd/man/systemd-resolved.service.html&quot;&gt;“systemd” Network Name Resolution manager&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 13 May 2019 07:00:00 +1200</pubDate>
+        <link>https://badran.net.nz/linux/ubuntu/dns/2019/05/13/ubuntu_18.04_DNS_Flush.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/ubuntu/dns/2019/05/13/ubuntu_18.04_DNS_Flush.html</guid>
+        
+        
+        <category>linux</category>
+        
+        <category>ubuntu</category>
+        
+        <category>dns</category>
+        
+      </item>
+    
+      <item>
+        <title>tlp and battery life!</title>
+        <description>&lt;p&gt;One of the first things you should do once you install Ubuntu (18.04) on our laptop, is install tlp.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;tlp tlp-rdw
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run the following to start the service:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tlp start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To view interesting stats about your laptop you can run the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;tlp-stat | less
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;extra-reading&quot;&gt;Extra reading:&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://itsfoss.com/reduce-overheating-laptops-linux/&quot;&gt;Most Effective Ways To Reduce Laptop Overheating In Linux&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.phoronix.com/scan.php?page=article&amp;amp;item=ubuntu2017-tlp-powertop&amp;amp;num=3&quot;&gt;Is PowerTop / TLP Still Useful To Save Power On Linux Laptops?&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 29 Mar 2019 20:00:01 +1300</pubDate>
+        <link>https://badran.net.nz/linux/laptop/2019/03/29/tlp_and_Battery_Life.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/laptop/2019/03/29/tlp_and_Battery_Life.html</guid>
+        
+        
+        <category>linux</category>
+        
+        <category>laptop</category>
+        
+      </item>
+    
+      <item>
+        <title>journald clearing old log entries!</title>
+        <description>&lt;p&gt;After running a system with journald, the &lt;strong&gt;/var/log/journal&lt;/strong&gt; folder will start to grow in size. It is possible to trim it down by either deleting entries based on date logs. The following example will delete all but the last 31 days of logs:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;journalctl &lt;span class=&quot;nt&quot;&gt;--vacuum-time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;31d
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or based on size. The following example will delete all execpt for the latest 3 Gibibytes worth of logs:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;journalctl &lt;span class=&quot;nt&quot;&gt;--vacuum-size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3G
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above commands can be run on a weekly basis via cron.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 15 Jan 2019 14:21:07 +1300</pubDate>
+        <link>https://badran.net.nz/linux/systemd/journald/2019/01/15/journald_clearing_old_logs_entries.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/systemd/journald/2019/01/15/journald_clearing_old_logs_entries.html</guid>
+        
+        
+        <category>linux</category>
+        
+        <category>systemd</category>
+        
+        <category>journald</category>
+        
+      </item>
+    
+      <item>
+        <title>Upgrade a Specific Package with apt</title>
+        <description>&lt;p&gt;At times you would want to upgrade only a single package (and the dependcies of said package). Quote often other would recommend using just the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Package-Name]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The issue with the above is that it would add the package the list of manually installed packages. Which would result in this package never being removed if you ever uninstall all packages that are dependent on it.&lt;/p&gt;
+
+&lt;p&gt;The solution is to add the &lt;strong&gt;–only-upgrade&lt;/strong&gt; flag as such:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; –only-upgrade &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Package-Name]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;extra&quot;&gt;Extra&lt;/h4&gt;
+
+&lt;p&gt;You can view all packages that were manually installed (not installed as dependencies) by using this command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-mark showmanual
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It is a good idea to keep a copy of this list with your backups.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 03 Feb 2018 00:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/linux/2018/02/03/Upgrade_a_Specific_Package_With_apt.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/2018/02/03/Upgrade_a_Specific_Package_With_apt.html</guid>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+      <item>
+        <title>Moving Within Bash</title>
+        <description>&lt;p&gt;I have recently learned that it is possible to jump around text in bash using the following commands:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ctrl + A&lt;/td&gt;
+      &lt;td&gt;Goes to the start of the line.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ctrl + E&lt;/td&gt;
+      &lt;td&gt;Goes to the end of the line.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ctrl + B&lt;/td&gt;
+      &lt;td&gt;Goes 1 character to left.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ctrl + F&lt;/td&gt;
+      &lt;td&gt;Goes 1 character to the right.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alt + B&lt;/td&gt;
+      &lt;td&gt;Goes to the start of the word.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alt + F&lt;/td&gt;
+      &lt;td&gt;Goes to the end of the word.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;It is also possible to remove text:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ctrl + U&lt;/td&gt;
+      &lt;td&gt;Delete from start of line to current character.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ctrl + W&lt;/td&gt;
+      &lt;td&gt;Delete from start of word to current character.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alt + D&lt;/td&gt;
+      &lt;td&gt;Delete from current character to end of word.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ctrl + K&lt;/td&gt;
+      &lt;td&gt;Delete from current character to end of line.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        <pubDate>Wed, 31 Jan 2018 00:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/linux/bash/2018/01/31/Moving_Within_Bash.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/bash/2018/01/31/Moving_Within_Bash.html</guid>
+        
+        
+        <category>linux</category>
+        
+        <category>bash</category>
+        
+      </item>
+    
+      <item>
+        <title>Borg-Backup Archive Storage Stats</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://www.borgbackup.org/&quot;&gt;Borg&lt;/a&gt; (Borg Backup) is a FOSS project that provides a space efficient (via dedpulication, and compression) and secure backup solution. The best part is that it is scriptable, and you can run an hourly cron to make sure that you have hourly backups of your data.&lt;/p&gt;
+
+&lt;p&gt;One thing that the current version was missing, is a way to easily view how much space each Archive takes within a particular repository. It does provide two commands that can be combine in a simple bash script to give us the needed results.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://borgbackup.readthedocs.io/en/stable/usage/list.html&quot;&gt;borg list&lt;/a&gt; gives us a list of Archives within a repository.&lt;/p&gt;
+
+&lt;p&gt;The following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;borg list /path/to/repo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Will give us this output:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...
+Laptop-2017-11-18-1400               Sat, 2017-11-18 14:00:01
+Laptop-2017-11-18-1500               Sat, 2017-11-18 15:00:02
+Laptop-2017-11-18-1600               Sat, 2017-11-18 16:00:02
+Laptop-2017-11-18-1700               Sat, 2017-11-18 17:00:01
+Laptop-2017-11-18-1800               Sat, 2017-11-18 18:00:02
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It is basically a list of all the archives, with their name and the date/time of their creation.&lt;/p&gt;
+
+&lt;p&gt;But we only need name, which be easily acheaved by adding the &lt;strong&gt;–short&lt;/strong&gt; argument as such:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;borg list &lt;span class=&quot;nt&quot;&gt;--short&lt;/span&gt; /path/to/repo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So now we have the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...
+Laptop-2017-11-18-1400
+Laptop-2017-11-18-1500
+Laptop-2017-11-18-1600
+Laptop-2017-11-18-1700
+Laptop-2017-11-18-1800
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Each of the above lines we can feed to the &lt;a href=&quot;https://borgbackup.readthedocs.io/en/stable/usage/info.html&quot;&gt;borg info&lt;/a&gt; command as following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;borg info /path/to/repo::Laptop-2017-11-18-1400
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wich will give us an output as such:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name: Laptop-2017-11-18-1400
+Fingerprint: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Redacted]
+Hostname: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Redacted]
+Username: max
+Time &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;start&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: Sat, 2017-11-18 14:00:01
+Time &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;end&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:   Sat, 2017-11-18 14:00:34
+Command line: /usr/bin/borg create &lt;span class=&quot;nt&quot;&gt;--stats&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--compress&lt;/span&gt; zlib,6 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Redacted]
+Number of files: 182284
+
+                       Original size      Compressed size    Deduplicated size
+This archive:               15.78 GB             10.15 GB             12.80 MB
+All archives:                1.91 TB              1.28 TB             41.11 GB
+
+                       Unique chunks         Total chunks
+Chunk index:                  631558             29090226
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;From the above we are only interested in the line showing us the name of the archive, and the actual line showing us the space used by said archive. So I just use &lt;strong&gt;grep “Name:|This”&lt;/strong&gt; to filter out the unneeded lines, as such:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;borg info /path/to/repo::Laptop-2017-11-18-1400 | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Name:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\|&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;This&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name: Laptop-2017-11-18-1400
+This archive:               15.78 GB             10.15 GB             12.80 MB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So we now can use these two simple commands (with some bash glue) to have the following little script &lt;a href=&quot;https://gist.githubusercontent.com/Max-Github/f639eedcffa9dbf403a301a1bb23d8ee/raw/8841c85639f62501614ab3dc738e5c60702928ce/GetBackupDetails.sh&quot;&gt;GetBackupDetails.sh&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#/bin/bash&lt;/span&gt;
+
+borg list &lt;span class=&quot;nt&quot;&gt;--short&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; | &lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;line&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;borg info &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;::&lt;span class=&quot;nv&quot;&gt;$line&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Name:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\|&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;This&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can save it to a folder that is defined within the current user’s or system’s path, and we will be able to call it from any directory as such:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GetBackupDetails.sh  /path/to/repo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It uses &lt;strong&gt;borg list –short&lt;/strong&gt; to generate the list of archives, which are then passed line by line (1 archive per line) to &lt;strong&gt;borg info&lt;/strong&gt;, and cleaned up using &lt;strong&gt;grep&lt;/strong&gt;. Giving us the following result:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;....
+Name: Laptop-2017-11-18-1100
+This archive:               15.79 GB             10.16 GB             28.48 MB
+Name: Laptop-2017-11-18-1200
+This archive:               15.78 GB             10.15 GB             20.38 MB
+Name: Laptop-2017-11-18-1300
+This archive:               15.78 GB             10.15 GB             13.47 MB
+Name: Laptop-2017-11-18-1400
+This archive:               15.78 GB             10.15 GB             12.80 MB
+Name: Laptop-2017-11-18-1500
+This archive:               15.78 GB             10.15 GB             23.78 MB
+....
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above can be outputed to the terminal, or preferably to a file or to &lt;a href=&quot;https://en.wikipedia.org/wiki/Less_(Unix)&quot;&gt;less&lt;/a&gt; for easier viewing.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GetBackupDetails.sh  /path/to/repo | less
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 18 Nov 2017 00:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/linux/borg/2017/11/18/Borg-Backup_Archive_Storage_Stats.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/borg/2017/11/18/Borg-Backup_Archive_Storage_Stats.html</guid>
+        
+        
+        <category>linux</category>
+        
+        <category>borg</category>
+        
+      </item>
+    
+      <item>
+        <title>Golang Cross Compiling</title>
+        <description>&lt;p&gt;With &lt;a href=&quot;https://golang.org&quot;&gt;go&lt;/a&gt; it is very easy to cross compile. Here is the simple command to compile your go program on Linux for Windows:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ GOOS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;windows &lt;span class=&quot;nv&quot;&gt;GOARCH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;amd64 go build &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; myApplication.exe myApplication.go
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you need to build a 32bit application, then you will need to replace &lt;strong&gt;amd64&lt;/strong&gt; with &lt;strong&gt;386&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 09 Nov 2017 00:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/linux/windows/go/2017/11/09/Golang_Cross_Compiling.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/windows/go/2017/11/09/Golang_Cross_Compiling.html</guid>
+        
+        
+        <category>linux</category>
+        
+        <category>windows</category>
+        
+        <category>go</category>
+        
+      </item>
+    
+      <item>
+        <title>Ubuntu 17.04 - Revert systemd-resolved back to dnsmasq</title>
+        <description>&lt;p&gt;The following would revert dns resolution to back the way it was handled in 16.04 (using dnsmasq):&lt;/p&gt;
+
+&lt;p&gt;Install dnsmasq:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;dnsmasq
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Disable the systemd-resolved service:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl stop systemd-resolved
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl disable systemd-resolved
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check if dnsmaq is running:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl status dnsmasq
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see a line starting with the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Active: active &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;running&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Updated the ‘‘/etc/NetworkManager/NetworkManager.conf’’ config file, and add ‘‘dns=dnsmasq’’ to the main section as such:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;]
+&lt;span class=&quot;n&quot;&gt;dns&lt;/span&gt;=&lt;span class=&quot;n&quot;&gt;dnsmasq&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Restart the Network Manager:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;systemctl restart NetworkManager
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And finally ‘‘/etc/resolv.conf’’ should be replaced by a symlink to ‘‘/var/run/NetworkManager/resolv.conf’’:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo rm&lt;/span&gt; /etc/resolv.conf&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo ln&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; /var/run/NetworkManager/resolv.conf /etc/resolv.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 27 Oct 2017 00:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/linux/dns/networking/2017/10/27/Ubuntu_revert_systemd-resolved_back_to_dnsmasq.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/dns/networking/2017/10/27/Ubuntu_revert_systemd-resolved_back_to_dnsmasq.html</guid>
+        
+        
+        <category>linux</category>
+        
+        <category>dns</category>
+        
+        <category>networking</category>
+        
+      </item>
+    
+      <item>
+        <title>The basics of holding back package with apt-mark</title>
+        <description>&lt;p&gt;Some times there is a need to keep an installed package held back at a certain version. This can be acheaved by a number of ways. The easiest of which is to use &lt;a href=&quot;http://manpages.ubuntu.com/manpages/zesty/man8/apt-mark.8.html&quot;&gt;apt-mark&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This tool (apt-mark) is included with all modern debian based distributions.&lt;/p&gt;
+
+&lt;p&gt;We are interested in the following three commands:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-mark hold &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Package Name]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Marks a package as held back. This would stop it from being updated. This requires root access.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-mark unhold &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Package Name]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Unsets a package set as held back. This requires root access.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-mark showhold
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Prints the list of package on hold.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-mark hold vim
+vim &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;on hold.
+~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-mark showhold
+vim
+~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-mark unhold vim
+Canceled hold on vim.
+~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-mark showhold
+~&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 20 Oct 2017 00:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/linux/2017/10/20/Package_holding_with_apt-mark.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/2017/10/20/Package_holding_with_apt-mark.html</guid>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+      <item>
+        <title>Disable Netbios for SMB (Samba)</title>
+        <description>&lt;p&gt;Edit:
+/etc/samba/smb.conf&lt;/p&gt;
+
+&lt;p&gt;And add the following under “[global]”:&lt;/p&gt;
+
+&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;disable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;netbios&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 18 Oct 2017 00:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/linux/2017/10/18/Disable_Netbois_for_SMB.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/linux/2017/10/18/Disable_Netbois_for_SMB.html</guid>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+  </channel>
+</rss>

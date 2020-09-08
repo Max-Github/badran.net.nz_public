@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Borg-Backup Archive Storage Stats</title>
+  <meta name="description"
+    content="Borg (Borg Backup) is a FOSS project that provides a space efficient (via dedpulication, and compression) and secure backup solution. The best part is that i...">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/css/mycss.css">
+  <link rel="canonical" href="https://badran.net.nz/linux/borg/2017/11/18/Borg-Backup_Archive_Storage_Stats.html">
+  <link rel="alternate" type="application/rss+xml" title="Badran.net.nz"
+    href="https://badran.net.nz/feed.xml">
+</head>
+
+  <body>
+
+    <header class="site-header">
+    <div class="site-header-container">
+        <a class="logo" href="/"></a>
+        <div class="site-header-text">
+            <h1>
+                <a class="site-title"
+                    href="/">Badran.net.nz</a>
+            </h1>
+            <h2>Just some random stuff.
+</h2>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+        <section id="main_content">
+            <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Borg-Backup Archive Storage Stats</h1>
+    <p class="post-meta">
+        <time datetime="2017-11-18T00:00:00+13:00" itemprop="datePublished">Nov 18, 2017</time>
+         
+        <br><span>[linux, borg]</span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><a href="https://www.borgbackup.org/">Borg</a> (Borg Backup) is a FOSS project that provides a space efficient (via dedpulication, and compression) and secure backup solution. The best part is that it is scriptable, and you can run an hourly cron to make sure that you have hourly backups of your data.</p>
+
+<p>One thing that the current version was missing, is a way to easily view how much space each Archive takes within a particular repository. It does provide two commands that can be combine in a simple bash script to give us the needed results.</p>
+
+<p><a href="http://borgbackup.readthedocs.io/en/stable/usage/list.html">borg list</a> gives us a list of Archives within a repository.</p>
+
+<p>The following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>borg list /path/to/repo
+</code></pre></div></div>
+
+<p>Will give us this output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+Laptop-2017-11-18-1400               Sat, 2017-11-18 14:00:01
+Laptop-2017-11-18-1500               Sat, 2017-11-18 15:00:02
+Laptop-2017-11-18-1600               Sat, 2017-11-18 16:00:02
+Laptop-2017-11-18-1700               Sat, 2017-11-18 17:00:01
+Laptop-2017-11-18-1800               Sat, 2017-11-18 18:00:02
+...
+</code></pre></div></div>
+
+<p>It is basically a list of all the archives, with their name and the date/time of their creation.</p>
+
+<p>But we only need name, which be easily acheaved by adding the <strong>–short</strong> argument as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>borg list <span class="nt">--short</span> /path/to/repo
+</code></pre></div></div>
+
+<p>So now we have the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+Laptop-2017-11-18-1400
+Laptop-2017-11-18-1500
+Laptop-2017-11-18-1600
+Laptop-2017-11-18-1700
+Laptop-2017-11-18-1800
+...
+</code></pre></div></div>
+
+<p>Each of the above lines we can feed to the <a href="https://borgbackup.readthedocs.io/en/stable/usage/info.html">borg info</a> command as following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>borg info /path/to/repo::Laptop-2017-11-18-1400
+</code></pre></div></div>
+
+<p>Wich will give us an output as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: Laptop-2017-11-18-1400
+Fingerprint: <span class="o">[</span>Redacted]
+Hostname: <span class="o">[</span>Redacted]
+Username: max
+Time <span class="o">(</span>start<span class="o">)</span>: Sat, 2017-11-18 14:00:01
+Time <span class="o">(</span>end<span class="o">)</span>:   Sat, 2017-11-18 14:00:34
+Command line: /usr/bin/borg create <span class="nt">--stats</span> <span class="nt">-v</span> <span class="nt">--compress</span> zlib,6 <span class="o">[</span>Redacted]
+Number of files: 182284
+
+                       Original size      Compressed size    Deduplicated size
+This archive:               15.78 GB             10.15 GB             12.80 MB
+All archives:                1.91 TB              1.28 TB             41.11 GB
+
+                       Unique chunks         Total chunks
+Chunk index:                  631558             29090226
+</code></pre></div></div>
+
+<p>From the above we are only interested in the line showing us the name of the archive, and the actual line showing us the space used by said archive. So I just use <strong>grep “Name:|This”</strong> to filter out the unneeded lines, as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>borg info /path/to/repo::Laptop-2017-11-18-1400 | <span class="nb">grep</span> <span class="s2">"Name:</span><span class="se">\|</span><span class="s2">This"</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: Laptop-2017-11-18-1400
+This archive:               15.78 GB             10.15 GB             12.80 MB
+</code></pre></div></div>
+
+<p>So we now can use these two simple commands (with some bash glue) to have the following little script <a href="https://gist.githubusercontent.com/Max-Github/f639eedcffa9dbf403a301a1bb23d8ee/raw/8841c85639f62501614ab3dc738e5c60702928ce/GetBackupDetails.sh">GetBackupDetails.sh</a>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#/bin/bash</span>
+
+borg list <span class="nt">--short</span> <span class="nv">$1</span> | <span class="k">while </span><span class="nb">read </span>line<span class="p">;</span> <span class="k">do </span>borg info <span class="nv">$1</span>::<span class="nv">$line</span> | <span class="nb">grep</span> <span class="s2">"Name:</span><span class="se">\|</span><span class="s2">This"</span> <span class="p">;</span> <span class="k">done</span>
+</code></pre></div></div>
+
+<p>We can save it to a folder that is defined within the current user’s or system’s path, and we will be able to call it from any directory as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GetBackupDetails.sh  /path/to/repo
+</code></pre></div></div>
+
+<p>It uses <strong>borg list –short</strong> to generate the list of archives, which are then passed line by line (1 archive per line) to <strong>borg info</strong>, and cleaned up using <strong>grep</strong>. Giving us the following result:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>....
+Name: Laptop-2017-11-18-1100
+This archive:               15.79 GB             10.16 GB             28.48 MB
+Name: Laptop-2017-11-18-1200
+This archive:               15.78 GB             10.15 GB             20.38 MB
+Name: Laptop-2017-11-18-1300
+This archive:               15.78 GB             10.15 GB             13.47 MB
+Name: Laptop-2017-11-18-1400
+This archive:               15.78 GB             10.15 GB             12.80 MB
+Name: Laptop-2017-11-18-1500
+This archive:               15.78 GB             10.15 GB             23.78 MB
+....
+</code></pre></div></div>
+
+<p>The above can be outputed to the terminal, or preferably to a file or to <a href="https://en.wikipedia.org/wiki/Less_(Unix)">less</a> for easier viewing.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GetBackupDetails.sh  /path/to/repo | less
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+        </section>
+    
+    </div>
+    <sidebar class="site-sidebar">
+    <nav class="site-nav">
+        <h3><a name="Blog" href="/blog/">Blog</a></h3>
+<h4>category list:</h4>
+<ul>
+  
+  <li><a name="update" href="/category_list/#update">update</a></li>
+  
+  <li><a name="linux" href="/category_list/#linux">linux</a></li>
+  
+  <li><a name="docker" href="/category_list/#docker">docker</a></li>
+  
+  <li><a name="systemd" href="/category_list/#systemd">systemd</a></li>
+  
+  <li><a name="dns" href="/category_list/#dns">dns</a></li>
+  
+  <li><a name="ad blocker" href="/category_list/#ad blocker">ad blocker</a></li>
+  
+  <li><a name="networking" href="/category_list/#networking">networking</a></li>
+  
+  <li><a name="lxd" href="/category_list/#lxd">lxd</a></li>
+  
+  <li><a name="windows" href="/category_list/#windows">windows</a></li>
+  
+  <li><a name="go" href="/category_list/#go">go</a></li>
+  
+  <li><a name="borg" href="/category_list/#borg">borg</a></li>
+  
+  <li><a name="bash" href="/category_list/#bash">bash</a></li>
+  
+  <li><a name="journald" href="/category_list/#journald">journald</a></li>
+  
+  <li><a name="laptop" href="/category_list/#laptop">laptop</a></li>
+  
+  <li><a name="ubuntu" href="/category_list/#ubuntu">ubuntu</a></li>
+  
+</ul>
+    </nav>
+
+    <hr>
+    <footer class="site-footer">
+    <ul class="social-media-list">
+        <li><a href="/about/">Contact Details</a></li>
+        
+        <li><a href="https://github.com/Max-Github"><i class="fa fa-github" aria-hidden="true"></i> Max-Github</a></li>
+        
+              
+        
+        <li><a href="https://twitter.com/badran"><i class="fa fa-twitter" aria-hidden="true"></i> badran</a></li>
+        
+    </ul>
+</footer>
+
+    <hr>
+</sidebar>
+  </body>
+</html>

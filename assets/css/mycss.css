@@ -1,0 +1,11 @@
+.site-header-container {
+    display: flex;
+}
+
+.logo {
+    background: url("../images/logo.png") no-repeat;
+    background-size: contain;
+    width: 100px;
+    height: 70px;
+    display: block;
+}

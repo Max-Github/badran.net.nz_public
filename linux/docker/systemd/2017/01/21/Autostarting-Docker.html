@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Autostarting a docker container with systemd</title>
+  <meta name="description"
+    content="Often one needs a docker container to automatically start with a system. This can be achieved by creating a system service with systemd.">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/css/mycss.css">
+  <link rel="canonical" href="https://badran.net.nz/linux/docker/systemd/2017/01/21/Autostarting-Docker.html">
+  <link rel="alternate" type="application/rss+xml" title="Badran.net.nz"
+    href="https://badran.net.nz/feed.xml">
+</head>
+
+  <body>
+
+    <header class="site-header">
+    <div class="site-header-container">
+        <a class="logo" href="/"></a>
+        <div class="site-header-text">
+            <h1>
+                <a class="site-title"
+                    href="/">Badran.net.nz</a>
+            </h1>
+            <h2>Just some random stuff.
+</h2>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+        <section id="main_content">
+            <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Autostarting a docker container with systemd</h1>
+    <p class="post-meta">
+        <time datetime="2017-01-21T20:00:00+13:00" itemprop="datePublished">Jan 21, 2017</time>
+         
+        <br><span>[linux, docker, systemd]</span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Often one needs a docker container to automatically start with a system. This can be achieved by creating a system service with systemd.</p>
+
+<p>Here is an example of how to a get <a href="https://github.com/diginc/docker-pi-hole">Dockerized Pi-Hole</a> to auto start with the host system.</p>
+
+<p>As root, using your favourite editor, create a new file with in the systemd systems folder:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/systemd/system/docker-pihole.service
+</code></pre></div></div>
+
+<p>Add the following content:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">[</span><span class="nv">Unit</span><span class="pi">]</span>
+<span class="s">Description=Pihole container</span>
+<span class="s">Requires=docker.service</span>
+<span class="s">After=docker.service</span>
+
+<span class="pi">[</span><span class="nv">Service</span><span class="pi">]</span>
+<span class="s">Restart=always</span>
+<span class="s">ExecStart=/usr/bin/docker start -a pihole</span>
+<span class="s">ExecStop=/usr/bin/docker stop -t 2 pihole</span>
+
+<span class="pi">[</span><span class="nv">Install</span><span class="pi">]</span>
+<span class="s">WantedBy=default.target</span>
+</code></pre></div></div>
+
+<p>Let us go through the above yaml file.</p>
+
+<p>Within the <strong>Unit</strong> section we provide the service with a <strong>Description</strong>. And we define any required services through <strong>Requires</strong>, in this case we only require the docker service. And we specify that our container should be started <strong>After</strong> the docker service.</p>
+
+<p>Now within the <strong>Service</strong> section we set the service to always <strong>Restart</strong>, note that with docker 1.2 this can be also defined within the container itself. And we specify the commands needed to <strong>Start</strong> and <strong>Stop</strong> our container.</p>
+
+<p>And finally within the <strong>Install</strong> section we define how to enabled our service. Here we just set to be enabled by our default setup.</p>
+
+<p>For a more detailed reference checkout:
+<a href="https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files">Digital Ocean’s: Understanding Systemd Units and Unit Files</a></p>
+
+  </div>
+
+</article>
+
+        </section>
+    
+    </div>
+    <sidebar class="site-sidebar">
+    <nav class="site-nav">
+        <h3><a name="Blog" href="/blog/">Blog</a></h3>
+<h4>category list:</h4>
+<ul>
+  
+  <li><a name="update" href="/category_list/#update">update</a></li>
+  
+  <li><a name="linux" href="/category_list/#linux">linux</a></li>
+  
+  <li><a name="docker" href="/category_list/#docker">docker</a></li>
+  
+  <li><a name="systemd" href="/category_list/#systemd">systemd</a></li>
+  
+  <li><a name="dns" href="/category_list/#dns">dns</a></li>
+  
+  <li><a name="ad blocker" href="/category_list/#ad blocker">ad blocker</a></li>
+  
+  <li><a name="networking" href="/category_list/#networking">networking</a></li>
+  
+  <li><a name="lxd" href="/category_list/#lxd">lxd</a></li>
+  
+  <li><a name="windows" href="/category_list/#windows">windows</a></li>
+  
+  <li><a name="go" href="/category_list/#go">go</a></li>
+  
+  <li><a name="borg" href="/category_list/#borg">borg</a></li>
+  
+  <li><a name="bash" href="/category_list/#bash">bash</a></li>
+  
+  <li><a name="journald" href="/category_list/#journald">journald</a></li>
+  
+  <li><a name="laptop" href="/category_list/#laptop">laptop</a></li>
+  
+  <li><a name="ubuntu" href="/category_list/#ubuntu">ubuntu</a></li>
+  
+</ul>
+    </nav>
+
+    <hr>
+    <footer class="site-footer">
+    <ul class="social-media-list">
+        <li><a href="/about/">Contact Details</a></li>
+        
+        <li><a href="https://github.com/Max-Github"><i class="fa fa-github" aria-hidden="true"></i> Max-Github</a></li>
+        
+              
+        
+        <li><a href="https://twitter.com/badran"><i class="fa fa-twitter" aria-hidden="true"></i> badran</a></li>
+        
+    </ul>
+</footer>
+
+    <hr>
+</sidebar>
+  </body>
+</html>

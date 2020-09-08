@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Getting the Battery Status on Ubuntu 16.04</title>
+  <meta name="description"
+    content="Here is a simple script that can be used to get the Battery Status on laptop running ubuntu.">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/css/mycss.css">
+  <link rel="canonical" href="https://badran.net.nz/linux/2017/01/25/Getting-Battery-Status.html">
+  <link rel="alternate" type="application/rss+xml" title="Badran.net.nz"
+    href="https://badran.net.nz/feed.xml">
+</head>
+
+  <body>
+
+    <header class="site-header">
+    <div class="site-header-container">
+        <a class="logo" href="/"></a>
+        <div class="site-header-text">
+            <h1>
+                <a class="site-title"
+                    href="/">Badran.net.nz</a>
+            </h1>
+            <h2>Just some random stuff.
+</h2>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+        <section id="main_content">
+            <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Getting the Battery Status on Ubuntu 16.04</h1>
+    <p class="post-meta">
+        <time datetime="2017-01-25T15:56:07+13:00" itemprop="datePublished">Jan 25, 2017</time>
+         
+        <br><span>[linux]</span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Here is a simple script that can be used to get the Battery Status on laptop running ubuntu.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+upower <span class="nt">-i</span> /org/freedesktop/UPower/devices/battery_BAT0
+</code></pre></div></div>
+
+<p>Just save the above into your <strong>/home/[user]/bin/</strong> folder. I used <strong>BatteryStatus</strong> as the name, but any name would work. Run <strong>chmod +x BatteryStatus</strong>. And now you can just open a terminal window and type in <strong>BatteryStatus</strong> (or whatever name you gave the file) to get some details about the battery:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>max@E6220:~<span class="nv">$ </span>BatteryStatus
+  native-path:          BAT0
+  vendor:               Samsung SDI
+  model:                DELL TVMVN
+  serial:               6853
+  power supply:         <span class="nb">yes
+  </span>updated:              Wed 25 Jan 2017 15:58:53 NZDT <span class="o">(</span>98 seconds ago<span class="o">)</span>
+  has <span class="nb">history</span>:          <span class="nb">yes
+  </span>has statistics:       <span class="nb">yes
+  </span>battery
+    present:             <span class="nb">yes
+    </span>rechargeable:        <span class="nb">yes
+    </span>state:               fully-charged
+    warning-level:       none
+    energy:              62.16 Wh
+    energy-empty:        0 Wh
+    energy-full:         62.16 Wh
+    energy-full-design:  62.16 Wh
+    energy-rate:         0.0111 W
+    voltage:             12.419 V
+    percentage:          100%
+    capacity:            65.5536%
+    technology:          lithium-ion
+    icon-name:          <span class="s1">'battery-full-charged-symbolic'</span>
+
+max@E6220:~<span class="err">$</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+        </section>
+    
+    </div>
+    <sidebar class="site-sidebar">
+    <nav class="site-nav">
+        <h3><a name="Blog" href="/blog/">Blog</a></h3>
+<h4>category list:</h4>
+<ul>
+  
+  <li><a name="update" href="/category_list/#update">update</a></li>
+  
+  <li><a name="linux" href="/category_list/#linux">linux</a></li>
+  
+  <li><a name="docker" href="/category_list/#docker">docker</a></li>
+  
+  <li><a name="systemd" href="/category_list/#systemd">systemd</a></li>
+  
+  <li><a name="dns" href="/category_list/#dns">dns</a></li>
+  
+  <li><a name="ad blocker" href="/category_list/#ad blocker">ad blocker</a></li>
+  
+  <li><a name="networking" href="/category_list/#networking">networking</a></li>
+  
+  <li><a name="lxd" href="/category_list/#lxd">lxd</a></li>
+  
+  <li><a name="windows" href="/category_list/#windows">windows</a></li>
+  
+  <li><a name="go" href="/category_list/#go">go</a></li>
+  
+  <li><a name="borg" href="/category_list/#borg">borg</a></li>
+  
+  <li><a name="bash" href="/category_list/#bash">bash</a></li>
+  
+  <li><a name="journald" href="/category_list/#journald">journald</a></li>
+  
+  <li><a name="laptop" href="/category_list/#laptop">laptop</a></li>
+  
+  <li><a name="ubuntu" href="/category_list/#ubuntu">ubuntu</a></li>
+  
+</ul>
+    </nav>
+
+    <hr>
+    <footer class="site-footer">
+    <ul class="social-media-list">
+        <li><a href="/about/">Contact Details</a></li>
+        
+        <li><a href="https://github.com/Max-Github"><i class="fa fa-github" aria-hidden="true"></i> Max-Github</a></li>
+        
+              
+        
+        <li><a href="https://twitter.com/badran"><i class="fa fa-twitter" aria-hidden="true"></i> badran</a></li>
+        
+    </ul>
+</footer>
+
+    <hr>
+</sidebar>
+  </body>
+</html>

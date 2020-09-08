@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Ubuntu 17.04 - Revert systemd-resolved back to dnsmasq</title>
+  <meta name="description"
+    content="The following would revert dns resolution to back the way it was handled in 16.04 (using dnsmasq):">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/css/mycss.css">
+  <link rel="canonical" href="https://badran.net.nz/linux/dns/networking/2017/10/27/Ubuntu_revert_systemd-resolved_back_to_dnsmasq.html">
+  <link rel="alternate" type="application/rss+xml" title="Badran.net.nz"
+    href="https://badran.net.nz/feed.xml">
+</head>
+
+  <body>
+
+    <header class="site-header">
+    <div class="site-header-container">
+        <a class="logo" href="/"></a>
+        <div class="site-header-text">
+            <h1>
+                <a class="site-title"
+                    href="/">Badran.net.nz</a>
+            </h1>
+            <h2>Just some random stuff.
+</h2>
+        </div>
+    </div>
+</header>
+
+    <div class="container">
+        <section id="main_content">
+            <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Ubuntu 17.04 - Revert systemd-resolved back to dnsmasq</h1>
+    <p class="post-meta">
+        <time datetime="2017-10-27T00:00:00+13:00" itemprop="datePublished">Oct 27, 2017</time>
+         
+        <br><span>[linux, dns, networking]</span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>The following would revert dns resolution to back the way it was handled in 16.04 (using dnsmasq):</p>
+
+<p>Install dnsmasq:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>dnsmasq
+</code></pre></div></div>
+
+<p>Disable the systemd-resolved service:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl stop systemd-resolved
+<span class="nb">sudo </span>systemctl disable systemd-resolved
+</code></pre></div></div>
+
+<p>Check if dnsmaq is running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status dnsmasq
+</code></pre></div></div>
+
+<p>You should see a line starting with the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Active: active <span class="o">(</span>running<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Updated the ‘‘/etc/NetworkManager/NetworkManager.conf’’ config file, and add ‘‘dns=dnsmasq’’ to the main section as such:</p>
+
+<div class="language-conf highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[<span class="n">main</span>]
+<span class="n">dns</span>=<span class="n">dnsmasq</span>
+</code></pre></div></div>
+
+<p>Restart the Network Manager:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl restart NetworkManager
+</code></pre></div></div>
+
+<p>And finally ‘‘/etc/resolv.conf’’ should be replaced by a symlink to ‘‘/var/run/NetworkManager/resolv.conf’’:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo rm</span> /etc/resolv.conf<span class="p">;</span> <span class="nb">sudo ln</span> <span class="nt">-s</span> /var/run/NetworkManager/resolv.conf /etc/resolv.conf
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+        </section>
+    
+    </div>
+    <sidebar class="site-sidebar">
+    <nav class="site-nav">
+        <h3><a name="Blog" href="/blog/">Blog</a></h3>
+<h4>category list:</h4>
+<ul>
+  
+  <li><a name="update" href="/category_list/#update">update</a></li>
+  
+  <li><a name="linux" href="/category_list/#linux">linux</a></li>
+  
+  <li><a name="docker" href="/category_list/#docker">docker</a></li>
+  
+  <li><a name="systemd" href="/category_list/#systemd">systemd</a></li>
+  
+  <li><a name="dns" href="/category_list/#dns">dns</a></li>
+  
+  <li><a name="ad blocker" href="/category_list/#ad blocker">ad blocker</a></li>
+  
+  <li><a name="networking" href="/category_list/#networking">networking</a></li>
+  
+  <li><a name="lxd" href="/category_list/#lxd">lxd</a></li>
+  
+  <li><a name="windows" href="/category_list/#windows">windows</a></li>
+  
+  <li><a name="go" href="/category_list/#go">go</a></li>
+  
+  <li><a name="borg" href="/category_list/#borg">borg</a></li>
+  
+  <li><a name="bash" href="/category_list/#bash">bash</a></li>
+  
+  <li><a name="journald" href="/category_list/#journald">journald</a></li>
+  
+  <li><a name="laptop" href="/category_list/#laptop">laptop</a></li>
+  
+  <li><a name="ubuntu" href="/category_list/#ubuntu">ubuntu</a></li>
+  
+</ul>
+    </nav>
+
+    <hr>
+    <footer class="site-footer">
+    <ul class="social-media-list">
+        <li><a href="/about/">Contact Details</a></li>
+        
+        <li><a href="https://github.com/Max-Github"><i class="fa fa-github" aria-hidden="true"></i> Max-Github</a></li>
+        
+              
+        
+        <li><a href="https://twitter.com/badran"><i class="fa fa-twitter" aria-hidden="true"></i> badran</a></li>
+        
+    </ul>
+</footer>
+
+    <hr>
+</sidebar>
+  </body>
+</html>
