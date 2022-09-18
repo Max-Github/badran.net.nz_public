@@ -6,9 +6,22 @@
 </description>
     <link>https://badran.net.nz/</link>
     <atom:link href="https://badran.net.nz/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 02 Feb 2020 11:41:38 +1300</pubDate>
-    <lastBuildDate>Sun, 02 Feb 2020 11:41:38 +1300</lastBuildDate>
-    <generator>Jekyll v3.8.4</generator>
+    <pubDate>Mon, 19 Sep 2022 11:52:20 +1200</pubDate>
+    <lastBuildDate>Mon, 19 Sep 2022 11:52:20 +1200</lastBuildDate>
+    <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Coffee</title>
+        <description>&lt;p&gt;This is a little post about coffee roasting.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 28 Feb 2021 08:00:00 +1300</pubDate>
+        <link>https://badran.net.nz/other/2021/02/28/Coffee.html</link>
+        <guid isPermaLink="true">https://badran.net.nz/other/2021/02/28/Coffee.html</guid>
+        
+        
+        <category>other</category>
+        
+      </item>
     
       <item>
         <title>Ubuntu 18.04 DNS Flush</title>
@@ -424,25 +437,6 @@ Canceled hold on vim.
         <pubDate>Fri, 20 Oct 2017 00:00:00 +1300</pubDate>
         <link>https://badran.net.nz/linux/2017/10/20/Package_holding_with_apt-mark.html</link>
         <guid isPermaLink="true">https://badran.net.nz/linux/2017/10/20/Package_holding_with_apt-mark.html</guid>
-        
-        
-        <category>linux</category>
-        
-      </item>
-    
-      <item>
-        <title>Disable Netbios for SMB (Samba)</title>
-        <description>&lt;p&gt;Edit:
-/etc/samba/smb.conf&lt;/p&gt;
-
-&lt;p&gt;And add the following under “[global]”:&lt;/p&gt;
-
-&lt;div class=&quot;language-conf highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;disable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;netbios&lt;/span&gt; = &lt;span class=&quot;n&quot;&gt;yes&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Wed, 18 Oct 2017 00:00:00 +1300</pubDate>
-        <link>https://badran.net.nz/linux/2017/10/18/Disable_Netbois_for_SMB.html</link>
-        <guid isPermaLink="true">https://badran.net.nz/linux/2017/10/18/Disable_Netbois_for_SMB.html</guid>
         
         
         <category>linux</category>
